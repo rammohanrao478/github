@@ -1,0 +1,145 @@
+IAM:identity access management
+
+ we want to create account 
+ click on create user createuser--->give user name
+ select access key programatic access and select AWS Management console access 
+ --->give the user name-->disable 'require passwd reset'-->click on next
+ now we can give permission in 3 steps
+ 1.add user to group
+ 2.copy permissionfrom existing user
+ 3.attaching policies directly
+ 
+ now click on attaching policies directly
+ 
+ now search for what permission i want to give for my user
+ search ec2 full access
+ click on next
+ now we can see review
+ click oncreate user
+ now we can observe one user is created here with access key and secret access key over here
+ 
+ for linux login:
+ access key   :
+ secret access key:
+
+for windows login 
+user name
+paswd 
+ 
+ 
+ 
+ now goto IAM dash board
+ 
+ any orgnization have corporate account under corporate account only we can create 
+ user account
+ aws will give a separate link will give for the orgnization
+now in dash board we observe at the right side we can observe the link
+using this url only user will login --->now logout from from aws --->give the url in browser 
+--->it will ask user name and passwd--->whenever you give the user name and passwd -->you can enter into user account
+now usr is at with a company id 
+the permission for this user is only ec2 full access
+this user access only ec2 ,the user cannot access any othes aws service like s3,IAM,route53 and so on.
+ 
+now user in IAM account
+the billing mechanism is done in root user only
+
+let me go to sign in root user
+ 
+ 
+ -->launch a instance-->login to linux machine-->enter the command 'aws configure'
+ it asks aws access key ID and 
+ then give the secret access key
+ enter
+ enter
+ aws configure list
+ aws s3 ls --->this command is used for tosee the list of buckets in s3
+but our user is only access the ec2
+
+as of now we create this user as directly
+
+now i want to create user as group
+
+
+now goto IAM dash board
+
+click on user groups--->create user group-->give the name to user group--->under attach policies-->give ec2 full access
+--->click on create group
+now click on user-->create usr-->aws access type-->select passwd-AWSManagement console access-->console passwd
+-->select custom passwd--->click on next-->here we select permissons
+--->click on add user to group-->select team--->review the configuration of group-->click on create
+now two users are there in my account one belongs to single user.and other belongs to group
+
+now click on group user
+now select groups --->click on add user to group-->select our created group
+now we can observe user belongs to the group
+now let me click on dash board--->let me copy the company url,now signout from current aws account
+and open the browser and enter the url of my company now let me enter withy group user--->it ask the user name and passwd
+it is same as old process
+ 
+ 
+ IAM roles:
+ ----------
+ we requre a IAM user login into EC2 machine ,those are 'acces key' 'scret access key',
+there is another way is also there for login to the ec2 machine by using roles
+	using roles user can login to  ec2 machine
+	
+	role is nothing but set of permissions
+	ec2,s3 ,rds,elastic cahe resources in aws .with out acces key and secete acces key we can acces the resouces usingroles
+
+create role-->from resouce is ec2 to resouce(ec2 machine to s3 resource)
+select first ec2--->next--select s3 full acces---tags are optional---now give the name of role ---click on create role
+
+now launch a machine--->login to the machine ---aws s3 ls---it can ask do aws configure first---now goto actions
+---instance settings--- attach IAM role---select our created role--apply
+now we can see the buckets with out enter aws config--->aws s3 ls-->we can see how many buckets are present in our aws account
+this is usage of IAM role
+
+
+polacies: every resource in aws is developed by json
+=========
+policy is nothing but where all the permissions that written.policies are nothing but permissions
+
+
+identity provider:
+===================
+it providdes single signe on
+go to  identity provider---clck on add provide--under provider name--->give 'okta url'--->it is a paid service--->you have to some money
+
+account settings
+================
+here we can change the password 
+and can acitvate and deactivate also we do here 
+
+credential report:
+==================
+it is older version of reporting those who ware worked on it --->click on download the report--- this is in excell formate
+cloud trail:
+============
+another way is there for getting the report--->that is cloud trail---go to aws services--->cloud trail
+---click on event history it will be available at dash board of cloud trail
+
+here we can see what the user did the work on this 
+
+
+
+we can upload a file from linux machine to s3 bucket
+ for that we have to do following
+ login to ec2 machin--->mkdir folder--->cd folder--->touch r1 r2 r3--->now i wnt to this file is upload to s3 bucket
+ --->using the following command
+ --->aws s3 cp r2 s3://bucketname --- go back to s3 bucket and check--->similarly remaing two files also uploaded
+ 
+ 
+ I want to up load all my files at atime for that i want to use the following command
+ 
+ aws s3 cp . s3://bucketname  --recursive---->dot  can indicats the all the files 
+now go to s3 bucket check it 
+
+
+we can create bucket through the folloeing command
+aws s3 mb s3://filpkart--->now flipkart bucket is created --->mb:make bucket
+aws s3 rb s3://filpkart---->flipkart bucket is removed here--->rm:remove bucket
+
+as of now we know that how to upload file from ec2 machine to s3.now i want to down load a file from s3 to ec2
+---> click on the object---we have to give permission to object--->click on object actoins -->select public via ACL
+---CLICK MAKE PUBLICK--->copy the object url--->goto goto ec2 machine terminal--->give the following command 
+--->wget object url--now the object will download over your linux machine

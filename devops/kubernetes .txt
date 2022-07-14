@@ -1,0 +1,82 @@
+=9:31 AM 6/27/2022 	+ ---->kubernetes responsibilities include container deployment,scaling and descaling ,
+    container load balancing
+--->actually kubernetes is not a replacement of docker,but kubernees can be considered
+    as replacement of dacker swarm,kubernetes significantly more complex than swarm
+	and requiresmore work to deploy
+	
+kubernetes features
+====================
+1. auto sheduling
+2.self healing capabilities:resceduling,replacing,restarting the containers which are died
+3.automated rollout and roll back
+4.horizental scaling and load balancing
+
+API server
+==========
+kube API server interacts with API,it is a front end of the kubernetes control plane.communication
+center for developers,system admin and other kubernetes compoents
+API--Application progrrammable interface
+
+scheduler
+=========
+scheduler wathes the pods and assigns the pods to run on specific hosts
+
+kubernetes installation process:
+================================
+1.we have to take 3 instances.1 for master ,2 for worker nodes
+2. sudo su in 3 instances
+3.yum install docker -y
+4.service docker start
+5.swapoff -a
+6.vi /etc/docker/daemon.json
+{
+ "exec-opts":  [native.cgroupdriver=systemd"]
+}
+
+
+7. sudo systemctl restart docker
+8.CREATE A PROPER YUM REPO FILES
+cat <<EOF > /etc/yum.repos.d/kubernetes.repos
+[kubernetes]
+name=kubernetes
+baseurl=https://packages.cloud.google.c om/yum/repos/kubernetes-e17-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.co/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/yum-key
+exclude=kube*
+EOF
+9.
+cat <<EOF > /etc/sysctl.dk8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+setenforce 0
+10.yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+11.systemctl enable kubelet && systenctl start kubelet
+
+the folloeing commands are executed on master only
+12.kubeadm init
+13.vi .bash_profile
+export KUBECONFIG=/etc/kubernetes/admin.conf 
+
+
+copy the long line at worker nodes to attach wirh master
+kubeadm join
+
+14.kubectl get nodes
+now the nodes are not in ready state
+now we have to enter the following command in master
+
+15.kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+16.kubectl get nodes
+now the nodes are in ready state
+17.kubectl get all
+
+
+
+
+
+
+zekelabs.com/blog/how-to-install-kubernetes-cluster-on-aws-ec2-instances/

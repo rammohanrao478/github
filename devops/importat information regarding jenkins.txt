@@ -1,0 +1,63 @@
+jenkins
+-------
+simple project--->under build section---clickexecute shell---echo "welcome to jenkins"
+--- goto dashboard of jenkins--click on build now
+
+plugins:
+deploy to container---it is helpful for to deploy war or jar files
+
+
+
+goto git hub and copy the link addess and give it in the scm of jenkins dash board
+and click on build section ---invoke top levelmaven targets---under the goals ---clean package
+
+difference between poll scm and build  periodically
+----------------------------------------------------
+inpoll scm: 
+
+whenever the developer changes the code the job will be triggered based on our scedule
+
+build periodically:
+------------------
+it is not based on develepor change .based our scedule time it wii trigger.
+so continuously tirigger goes to hang the vertual machine
+webhooks:
+-----------
+it is not in jenkins dashboard.this webhooks are placed in the github .whenever the change done by developer 
+it can triggers immediatly
+
+configuration:
+--------------
+	goto github --- goto settings---select webhook---addwebhook--under payload url--give the jenkins url----
+	under content type ---select json files
+
+change the port number in jenkins:
+----------------------------------
+   vi /etc/sysconfig/jenkins 
+   
+how to perameterize builds in jenkins:
+--------------------------------------
+we need to install git perameter plugin 
+senario:developer requests to raise the ops(ours) team
+he asks can you please test the war file is generated or not in dev/master/feture branch ? 
+GOTO DASHBOARD OF JENKINS
+in general section we have to select "This project is parameterised"
+under that
+name:whatever  ---example --branch
+parameter type:branch
+default value:${BRANCH}:i want all branches .thats way I have to use 
+${BRANCH}
+this plugin provides we can make the jobs on which branch you want
+it asks on which branch do you wants to run the job
+
+sequential jobs or upstream and down stream jobs
+=================================================
+i want to create three jobs. these three jobs are run in one after another
+as continuously loop
+we need to install two plkugins
+1.build pipeline plugin
+2.delivery pipeline plugin
+here we get visuvalization is different
+goto dash board 
+install build pipeline plugin--goback to dash boadrd and click on the + symbol and select the build pipeline option
+ 

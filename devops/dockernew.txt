@@ -1,0 +1,159 @@
+
+A service can be defined as a logical set of pods. It can be defined as an abstraction on
+ the top of the pod which provides a single IP address and DNS name by which pods can 
+ be accessed. With Service, it is very easy to manage load balancing configuration. 
+ It helps pods to scale very easily.
+
+docker:
+virtual machine                        docker
+memory utilization is not in perfect   no memory wastae
+                                      here we have use whole memory
+                                       docker is a containerization tool
+vm ware :multiple operating systems can be managed here
+ex:windows,ubuntu,linux
+vm ware works upon the hypervizer
+
+docker:
+=======
+developer develop the code and that code can be shipped them into container
+in a system create a ec2 instance we install docker then we create n number of
+containers depends on system
+
+
+docker follows clint server architecture.its contains mainly three parts
+1.client:
+=========
+docker provides CLI tools to client to interactwith docker daemon.client can build,run and stop application
+ 
+ docker installation steps:
+ ===========================
+ 1.we need to take one ec2 instane
+ 2.install docker
+   yum install docker -yum
+   service docker start
+   ifconfig -a
+docker intigration with jenkins
+================================
+developer------code----github----maven(war)
+			            |           |
+			            CI          CI
+			            |           | 
+			            |___________|
+			                |
+			             jenkins
+			                |
+                            CD
+ 			                 |
+App==>>EU<----tomcat<----docker(container)
+install the docker
+==================
+1. to the configuration of abuve setup we rquire two instances
+one for jenkins another for docker
+service docker start 
+useradd docker3
+passwd docker3
+vi /etc/ssh/sshd_config
+remove # symbol infront of Permit Rootlogin yes ,password authendication yes
+vi /etc/sudoers
+docker3 ALL=(ALL)   NOPASSWD:ALL
+service sshd start 
+su - docker3
+sudo docker pull nginx
+sudo docker images
+now we want to back up the docker images by means of login into the docker hub 
+and push our file into dockerhub
+for that 
+the following commands are used for backup the our image and push it into the dockerhub
+========================================================================================== 
+sudo docker tag nginx:latest rammohan4me/dev:rahul
+sudo docker push rammohan4me/dev:rahul
+now run the dockercommands
+===========================
+sudo docker images
+sudo docker run -itd --name nginx -p 40:80 image id
+docker ps
+sudo docker exec -it containerid /bin/bash---->goto inside the container
+sudo docker logs container id
+sudo docker rm -f container id
+sudo docker stop cotainerid 
+sudo docker rmi -f image id
+2.we require ssh connection is required in between docker and jenkins 
+ ssh-keygen -t rsa
+ sudo service sshd restart
+this process is also done at jenkins side also(we have to do ssh configuration from jenkins to docker)
+1.now we have to loginto the jenkins instance 
+  useradd docker3
+  passwd docker3
+2.vi /etc/ssh/sshd_config
+now have to remove the # infront of Permit Rootlogin yes ,password authendication yes
+now save it
+3.vi /etc/sudoers
+ add the following at the lost column
+ docker3   ALL=(ALL)   NOPASSWD:ALL
+ now save it
+service sshd start
+  su -docker3
+ ssh-keygen -t rsa    ---enter--enter
+ sudo service sshd restart
+ ssh-copy-id public ip of docker instance
+ now it asks the passwd (docker3)
+ here connectiomn is formed
+jenkins integrate with docker 
+=============================
+1.we need to install plugin:publishoverssh
+2.managejenkins---configure system---ssh servers--give the name----under host name we have to give 
+docker public id---username:docker3---click on advanced--select use passwd authendication--give the passwd
+---now click on the test configuration---it must be success--apply --save
+now we have to create job in jenkins
+=====================================
+new item ---give job name--select freestyle---give git hub url---give clean package
+click on add build step
+select "send files or exicute commands over ssh SSH"
+under source
+ file "target/*.war"
+under remove prefix--/target
+under remote directory
+/opt/docker -------apply--save
+now click on build now
+now we have to go to docker instane
+ls 
+opt will present under opt/docker war file will appear
+
+now we have to write the docker file 
+======================================
+FROM tomcat:8
+#take the war file and copy to the webapps of tomcat
+COPY /opt/docker/myweb-8.2.0.war /usr/local/tomcat/webapps/myweb.war
+
+under docker instance
+
+sudo vi Dockerfile---copy the above commands
+now we have to create the docker image
+
+sudo docker build -t tomcat:kalpana .
+now here docker image is created here and also the war file copied into the webapps 
+now we have to create docker container
+
+sudo docker run -itd --name chiru -p 1995:8080 image id
+
+now we have to take docker "publicip:1995/myweb/"
+
+if deployment is failed in QA environment  ,now we have to run the dockerfile
+vi Dockerfile
+FROM tomcat:8.0
+WORKDIR /usr/local/tomcat/webapps/
+RUN wget paste the link fron nexus
+EXPOSE 8080
+#cmd ["/opt/tomcat/bin/catalina.sh", "run" 
+
+sudo docker build -t tomcat:nani .
+
+now we have to create container from above image
+
+sudo docker run -itd  --name samantha -p 1986:8080 image id 
+
+now take the docker publicip:8080/myweb-8.2.0
+
+now we get the result 
+nexus is used for backup here
+

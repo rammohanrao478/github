@@ -1,0 +1,72 @@
+LOAD BALANERS:
+==============
+load balencers does'nt have ip address these contain DNS .this is given to end user
+
+We install http in our linux instance 
+
+yum install http* -y 
+systemctl status httpd
+systemctl start httpd
+systemctl enable httpd
+
+vim /var/www/html/index.html
+now we can write amessage
+we need to give permission
+chmod 777 /var/www/html/index.html
+systemctl restart httpd
+take the public ip along with port no 80
+
+
+load balancer balancing the load between the different servers
+
+one of the importent aontent is involved here that is "target group"
+loadbalancer will not connect to server directly--->my load balancer will always connect to my target group
+targetgroup is nothing but group of servers
+loab balencer will always searches for target groups
+before going to create load balencer we have to create target group
+
+
+
+now goto load balencers in aws console
+click on create target group
+give the name of target group
+target type instance
+protocal :http
+port :80
+click on create-------------->at this time i have created a target group but not create attach to any server
+go bottom and select targetsand click on edit target---->select your linux machine don't click on save-->click on add to registered---then click on save
+as of now i have created a machine and add the target group to my linux machine
+
+now i have created a loadbalancer 
+cick on loadbalancer -->create loadbalancer--->select application/http load balencer 
+
+then we have 6 steps
+1.configure load balencer
+ give the name of load balencer
+ select all availablity zones---now click on next
+2.configure security settings -->our ec2 instance has security group same as that every load balencer a security group
+3.configure security group
+now we observe that on which security group our instance will run and the security group we have to select
+(security group gor instance =security group for load balencer)
+
+4.configure routing:
+
+targetgroup:select existing
+name :give tne name what the target group you have created---click on next
+
+5.register targets:
+here we can observe the instance id---it displaying that one machine is present in our target group---click on next
+
+6.reviw 
+here we can obsrve what we doing in previous steps
+
+click on creat:-- now we get the load balencer
+afetr creation of our load balencer we can observe the DNS name
+
+whenever loadbalancer get active state--->give the DNS name in web brouser we got the message 1 million user,2 million user,2 million users login through this DNS name
+
+load balencer work flow
+chrome--->DNS/Loadbalencer--->target group -->inside the targetgroup is linux machine-->from there it will show the message
+
+and we will get the message from loadbalencer dns name
+ 

@@ -1,0 +1,58 @@
+s3:
+=======
+there are two types of databases are there they are
+1.user data--->it is stored in databases 
+2.application database--->this stored storages
+
+diferences between volumes and s3
+   volumes                       s3
+ 1.using of volume is under      1.ec2 machine is not requre to login to s3
+ instance.it is mandatory        
+ withpuit login to machine we 
+ can't login to vaolum
+ 2.what ever you store inside 
+ the volume,we call it as files  2.here we store the files in buckets and 
+                                  these files are called as objects
+ 
+ 3.the machine and volume are in 3.the machine is in any zone we can store the data 
+ same zone then only we can store 
+ the data
+ 4.two machines cannot access my  4.two machines simutaneously acces my  
+ volume at same time                   s3 bucket
+ 5.one machine is linux and other 5.here comptibilty is there any type of
+ machine is windows then the        we can attach
+ compaibilty is not provided
+ we must formate volume then
+ we canattach.
+ 6.volumes very cost               6.less cost compared to volumes
+ 7.max storage is 16.3 TB           7.the max size is 100 TB
+ 8.ex:if 100 gb file is there.      8.here we can upload 100 gb ata time 
+ we cannot upload single time.      s3 smatret storage service
+we can upload 25gb ata time 
+
+then we have to follow some steps to create s3 bucket and upload the file in s3 bucket
+s3 also provide one good thing.that is it can provide versioning
+like verion controle system like git.modification files are store indifferent 
+versions.eventhough  the file name is same we can save different content with same name.
+it can maintain versioning
+
+in properties column it has some other features
+
+we can enable static website hosting--->by select properties-->godown and select enable  website hosting
+--->hosta as a static website--->index document:index.html.txt-->error.html--->save changes
+
+
+goto s3 bucket -->go undewebsite hosting --->click on the link
+
+now we need to give two types of perssions required for s3 bucket
+1.bucket  permission
+2.object permission   
+go under ACL (acces control list)--->click on bucket owner enforce--->select enable ACL
+everyone(publi acces)  click on list  and click on read
+go down and select (i understand)--->click on save changes
+
+
+now goto objects
+click on one object and goto permissions and repeate thesame steps 
+
+using this steps we can run a website from our s3 bucket 

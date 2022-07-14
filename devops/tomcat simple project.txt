@@ -1,0 +1,40 @@
+practice-1:
+===========
+maven and tomcat simple project:
+=================================
+1.launch two instances 
+2.install java,git,maven in one of the instances 
+3.install tomcat in another instance and goto tomcat/webapps/manager/META-INF/context.xml--->remove value line
+  ans goto tomcat/conf/tomcatusers.xml and give passwd and user name,manager-gui,manager-script
+4.now we need to enter the following command for generating war file--clean packge
+5. this war file need to copy to webapps directory of tomcat
+6.this is possuble when only the connection is formed between tomcat and maven instances.this 
+ is done by ssh configuration
+7 do the ssh configuration from maven to tomcat.
+
+
+maven environmental setup:
+==========================
+M2_HOME=/opt/apache-maven-3.8.6
+M2=/opt/apache-maven-3.8.6/bin
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.312.b07-1.amzn2.0.2.x86_64/jre
+PATH=$PATH:$JAVA_HOME/bin:$M2_HOME:$M2
+for ssh configuration
+------------------------
+
+cd target
+
+vi /tmp/ansible.pem
+give the pem file here
+
+now we need to give the user level permissions to above file
+
+
+chmod 700 /tmp/ansible.pem
+then give the following command to copy the war file from maven to webapps directory of tom cat
+
+scp -i  /tmp/ansible.pem myweb.war-8.2.0 ec2-user@public or private ip of tomcat instance:/opt/apche-tomcat-8/webapps
+
+here aldso we get permission denied .now we need to give the permissions like this
+
+chmod 777 webapps

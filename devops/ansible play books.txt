@@ -1,0 +1,163 @@
+ansible play book
+==================
+1.play book contains list of plays/tasks and tasks contains list of modules
+2.ansible-playbook play book name ---> to run play book
+3.ansible-playbook playbook name --syntax-check--->syntax check.
+4.ansible play book playbookname --check---->dry run mode
+
+ansibleplaybook:ping.yml 
+=======================
+ping.yml playbook  is used for the file is run on nodes
+
+sudo vi ping.yml
+---
+- hosts: all
+  gather_facts: no
+  remote_user: ansible
+  tasks:
+    - name: Test connection
+      ping:
+      remote_user: ansible
+...
+
+
+1. ansible-playbook ping.yml  --syntax-check --->it can check the syntax is corect or not
+2.  ansible-playbook ping.yml  --check --->it can display the what the o/p will come
+3.  ansible-playbook ping.yml now we can the result
+
+vi ping yml 
+ ---
+- hosts: all
+  gather_facts: yes
+  remote_user: ansible
+  tasks:
+    - name:Test connection
+	  ping:
+	  remote_user: ansible
+---
+
+4.ansible-playbook ping.yml
+  
+ to create a file usig playbookname
+ ==================================
+sudo vi file.yml
+ ---
+ - hosts: localhost
+   tasks:
+    - name: Create a file
+	  file:
+	   path: /tmp/vasu
+	   state: touch
+...
+
+ansible-playbook file.yml
+cd temp 
+ls
+
+
+installation of apache http
+============================
+sudo vi http.yml
+
+---
+- hosts: all 
+  become: true
+  tasks:
+    - name: Install Apache HTTP server
+	  yum: name=httpd update_cache=yes state=latest
+...
+
+ansible-playbook http.yml
+
+now goto node1
+
+service http status   ------> if it is in dead state .it means it is installed
+
+
+sudo vi rahul.yml
+
+---
+- hosts: all 
+  become: true
+  tasks:
+    - name: Install Apache HTTP server
+	  yum: name=httpd update_cache=yes state=latest
+    - name: Start http Server
+	  service : name=httpd update_cache=yes state=latest
+	- name: Insert Index Page
+	  template:
+	   src: Index.html
+	   dest: /var/www/html/index.html
+...
+
+sudo vi index.html
+ welcome to hyderabad
+ 
+ ansible-playbook rahul.yml
+ 
+ 
+ take node1 public ip:80
+ 
+ we got  "welcome to hyderabad"
+ 
+take node2 public ip:80
+ 
+ we got  "welcome to hyderabad"
+ 
+===============================
+sudo vi copy.yml
+
+---
+- 	hosts: all
+    become: true
+	tasks:
+	  - name: Copy ansible inventoryfile to all hostmachines
+	    copy: src=/etc/ansible/hosts
+		      dest=/temp/
+			  owner=root
+			  group=root
+			  mode=0666
+			  
+ansible-playbook copy.yml
+
+goto node1
+
+cd /tmp
+ls 
+here we can see the line
+
+cat hosts
+
+vi loops.yml
+---
+- 	hosts: localhost
+    become: true
+	tasks:
+	  - name: Install list of packages
+	    yum: name='{{item}}' state=present
+		with _items:
+		 - httpd
+		 - wget
+		 - vim
+		 - zip
+		 - unzip
+ 
+ cloning the repository to localhost
+ ===================================
+ sudo gitclone.yml
+ hosts: localhost
+    become: yes 
+	tasks:
+	  - name: Install Git
+	     yum : name=git state=present
+	  - name: git clone
+        git:
+         repo: 'https://github.com/srinivas1987devops/myweb.git
+         dest: /home/ansible/myweb
+		 
+sudo ansible-playbook gitclone.yml
+
+git --version
+ls
+cd myweb 
+ls

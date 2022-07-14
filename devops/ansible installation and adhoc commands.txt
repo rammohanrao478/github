@@ -1,0 +1,99 @@
+ansibl
+======
+the following stes are doing in all ACM(ansible controle machine) and nodes
+1.useradd ansible (user create)
+passwd ansible 
+ansible
+ansible
+2.vi /etc/ssh/sshd_config
+#permit the root login =yes(remove comment #)
+#passwd authentication =yes (remove comment #)
+3.vi /etc/sudoers
+ ansible   all=(all)   NOPASSWD: ALL
+4.service sshd start
+5.switching to ansible user
+su - ansible
+6.ssh-keygen -t rsa
+7.sudo service sshd restert
+
+on acm
+=======
+ssh-copy-id public ip of node1
+ssh-copy-id public ip of node2
+
+8 sudo yum install -y ansible
+
+ansible --version
+ansible main configuration file----/etc/ansible/ansible.cfg
+vi /etc/ansible/ansible.cfg
+ #inventory file(remove the comment)
+sudo vi /etc/ansible/hosts(node information)--->we need to give private ip of nodes
+ 
+ ####[webserer]--->[] indecates groups(remove comments)
+ node1 ip (private ip)
+ node2 ip (private ip)
+[database] ---->>group
+ save it
+ansible all -m ping
+WE NEED TO ENTER YES
+AND 
+AGAIGN PRESS ENTER
+ansible all -m ping o-->now only we can get green letter information
+we enter all the commands from master only
+o--->optional
+ansible commands:
+=================
+ commands
+===============
+1.ansible all -m shell -a date ----it will display date from all host machines
+  m---->module a--->argumend
+due to above command diply the dete in two nodes 
+2.ansible webservers -m shell -a 'uptime'
+ it shows the information about hoew many users are created 
+   (or)
+ ansible all -m shell -a 'uptime'
+   (or)
+  ansible ip address of particular node -m shell -a 'uptime
+
+adhoc commands:
+==============
+1.ansible all -m yum -a "name=httpd state=present" --become
+by using the above commane we can install httpd with in fraction of seconds
+to check the this httpd is installed or not we have to go to node1 we nee 
+to enter the following command
+2.srvice httpd status
+ we can see the service in dead state,the same command is enter in node2 also
+now we want to start the service .we can start the service through master node only
+3.ansible all -m service -a "name=httpd state=started" --become
+
+now we can enter the following command on node1 and node2
+
+4.srvice httpd status
+ now the httpd service is running intwo nodes
+5.now take the public ip along with 80 we can get the home page of httpd
+ now i want to un install the service for that
+6.ansible all -m yum -a "name=httpd state=absent" --become
+
+now we check the status,it ca display like this
+service httpd not found
+
+
+
+now i want to install git on  nodes then
+7.ansible all -m yum -a "name=git state=present" --become
+
+
+  now i wnat to crate a file that file copy into bothe nodes 
+ 8. touch chiru
+    ansible all -m copy -a "src=/home/ansible/chiru dest=/home/ansible" --become
+ the above command results the file is appear at bothe the nodes
+ 9.df -h can providethe disk or volume space
+ 8.ansible all -m command -a 'fdisk -1' --become   
+   it can display the availanle volumes
+ 9.ansible all -m command -a 'lsblk' --becom
+ it can display the listof blocks
+ 
+ 10.ansible all -m command -a 'ifconfig' --become
+ here we can see the public ip of bothe nodes
+ 11.ansible-doc -l  ---->here we can see developer developed codes
+ 

@@ -1,0 +1,114 @@
+           nexus
+1.sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo --no-check-certificate
+Nexus:artifacts or artifactory(backup --->> war/jar/ear files) and port number  8081
+ 2. nexus is belogs to sonartype company
+ 3.here we can take the backup for releases and snapshots
+ 4.major.miner.bugfix.build---------->>>>8.2.0
+ version id ----->8.2.0---->>> going to be release 
+ version id ----->8.2.0-SNAPSHOT---->>>>under development
+ 
+ nexus usedfor buid backups
+
+nexus minimum requirements
+===========================
+1.one ec2-instance(2 cpu's,4gb ram---t2.large)
+2.java installation
+nexus installation method is different
+nexus port no 8081
+
+default username :admin
+here also passwd can be obtained as in case of jenkins as well
+ ex: /opt/sonartype-work/nexus3/admin.password
+ here we have to create two repositories
+ 1.releases 2.snapshot
+ 
+ nexus installation:
+ ===================
+1.we have to take ec2 instance
+2.sudo wget https://download.sonartype.com/nexus/3/latest-unix.tar.gzsudo wget https;//download.sonartype.com/nexus/3/latest-unix.tar.gz
+3.tar -xvf latest-unix.tar.gz 
+4.ls
+5. now we have to change the ownership root to ec2-user
+6.chown -R ec2-user:ec2-user nexus-3.34.1-01 sonartype-work
+7.mv nexus-3.34.1-01 nexus-3
+8.cd nexus-3
+9.ll
+cd bin/
+ls
+vi nexus.rc
+now have to remove the # inside nexus.rc
+run_as_user="ec2-user" 
+ln -s /opt/nexus3/bin/nexus /etc/init.d/nexus --->it can provide the link between  opt and etc 
+if chang is done atany side that change can be reflected back to other side
+cd /etc/init.d/
+chkconfig --add nexus -->here we can add user nexus
+chkconfig nexus on
+sudo service necxus start
+nexus publicip:8081
+now login into the nexus instance 
+ username:admin
+ passwd:encrypted passwd
+ now we need to reset the passwd 
+ 
+ now apper the dash board of nexus
+ goto settings 
+ click on repositories
+ click on create repository--->click on maven2(hosted)
+ give the name :sample-releases
+ version policy:release
+ click on create repository
+ 
+ create another repository
+ click on maven2(hosted)
+  
+ name:sample-snapshots
+ version policy:snapshots
+ click on create repository
+ 
+ now we need to copy the url of repository and give it in the pom.xml
+ 
+ nexus  is intigratewith jenkins
+ ===============================
+ 1.login into the jenkins server
+ 2.vi /etc/maven/settings.xml
+ under that we need to copy the lines between <servrs> <servers> and modify it to follwing
+ 
+ below the --> only we need to copy  
+ <server>
+   <id>nexusRepo</id>
+   <username>admin</username>
+   <password>admin</password>
+   </server>
+   now we need to observe the pom.xml under distribution section "nexusrepo"
+ now jenkins instance will communicate with nexus with the help of user and passwd
+
+now we need to goto git hub and goto pom.xml file click on edit
+under distribution tag of pom.xml we have to give the nexus instance public ip at sample-release line and sample-snapshot line
+now click on commit changes
+
+
+
+now we have to create jenkins job and select the requred repository url then
+under goals
+clean deploy
+buid now
+
+after completion of build we need to go to nexus dash board 
+click on box beside of settings
+click on browse 
+select sample-release
+at that place we can see the 8.2.0 file
+
+nexu port number change
+cd /opt
+cd necxus3
+cd /etc
+ls
+vi necxus-default properties
+we can change port numbernow we need to stop and start the nexus service
+
+
+
+
+
+sudo wget https://download.sonartype.com/nexus/3/latest-unix.tar.gzsudo wget https://download.sonartype.com/nexus/3/latest-unix.tar.gz

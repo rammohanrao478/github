@@ -1,0 +1,44 @@
+autoscaling:
+============
+two ways are there for our instance protection they are
+1.instance termination protection :goto actions ---instance settings ---instance termination protectio :true
+2.auto scaling
+
+
+
+auto scaling :
+============
+select requred instance for autoscaling--->create AMI--->goto actions
+-->select image-->create image
+give the image name-->click on create image
+now goto AMI we can observe the AMI
+
+--->take the copy of AMI-ID  
+---->click on launch configuration--->click on create launchconfiguration
+--->give the name to it
+-->enter the ami id 
+--->give the configuration information just stright farword steps
+-->add rule -->http -->port no 80
+-->click on create launch configuration
+
+now click on autoscaling group
+ -->click on create auto scaling group--->give any name
+ -->give your launchconfiguration name
+ -->click on next
+ -->now we have to select atleast two availability zones
+ --->click on next
+ --->if you want to add load balencer you can add here.add loadbalncerclick on next
+ 
+ group size:it is very important
+ ==========
+  desired capacity:1
+  minimum capacity:1
+  mximum capacity:1
+  
+  now click on next--->next-->next
+  create auto scaling group
+  
+  now i want to test 
+  goto instances terminate the instance
+  wait a couple of minutes and refresh it and the machine will created
+  goto auto scaling group and click on it and goto activity -->it can provide activity history system ctl

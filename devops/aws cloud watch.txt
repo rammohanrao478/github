@@ -1,0 +1,40 @@
+ cloud watch:
+ ============
+ cloud watch is a service which wiil give all the graphs to monitor your machine
+ 
+ create a instance--->select monitoring
+ 
+ goto cloud watch service ----it can monitor every aws resource---if click on ec2 
+ --we will see all the graphs---click on one of the graphs---we can see one hour utilization also
+ ---and also since last one day utilization---like that we can monitor
+ ---we can  the monitoring last one week or 1 month ,3 month click on custum we can monitor how many days do you want
+
+you can create your own jobs---for that goto clck
+click on dashboards ---click on creat dashboard--->give the name to the dash board---now it will ask what typeof job do you want
+---here different types of jobs are available--select one graph line )model---we want to monitor metrics---so select metric---select ec2 machineselect per instanance metrics search cpu
+select our instance--click on create widge gate---now we can see one seperate graph is shown for you---now click on ad widge gate---click on staced area graph---select metrics
+---click on configure---select ec2 ---per  instane metrics ---search cpu---click on create 
+   here we can observe that difference between the graphs 
+
+now i want to create one more graph ---select number graph--->click on next--select ec2 --- ---per  instane metrics ---search cpu---click on create 
+
+it will directly give you the direct number to indicate the percentage---now click save dash board
+
+we cannot monitor our resources all the time 
+
+by using thye alarams if cpu utilization is high---AWS service will give the notification---now we have to see how to set alaram first
+---we have two services are there they are ----sns(simple notification servivce)--->the job of the sns is to send the notification
+
+alaram
+======
+now click on 'in alaram'---click omn create alaram---click on --select metric---click on ec2---search cpu---select my machineclick on select metric---
+then here we give the 'threshold value'---like 60 or 70 %---click on next---select create new topic--give your e mail id(team email id---now click on crfeate topic)
+before going to sending notification if you goto sns --->click on subscriptions--here we can observe that pendingsubscription is there---now we go to 
+goto email andwe can observe the mail id and confirm---now go back to subscriptio--it  is activate
+  now we will go back to cloud watch click on nextgive the name to the alaram--sydney machine alaram---click on next---click on create alaram
+  
+ now alaram get created
+ 
+ now we can observew the alaram on ec2 machine ---as of now there is no alaram.now are created ---refreshit ---now alaram column is ok
+ 
+  now whenever the utilization of cpu is high the alaram colour change and provide the notification

@@ -1,0 +1,59 @@
+sonar qube:
+==========
+1.it can review the code continuously
+2.with the help of  quality gates we can review the code
+3.Four types of issues are ariesed in code quality analysis
+    a.minor issues    
+	b. major issues.
+	c.critical issue
+	d.blocker issue
+4.major and minor issues cannot imapct burt if  critical and blocker 
+ issues are araised we have to inform to developers through mail
+5.our job is install sonarqube if any blocker issues are araised
+  we have to inform development
+6.sonarqube port number is 9000
+7.minimum requirement for sonarqube creation
+  a.take one ec2 instance
+  b.it contains 2 cpus,4 GB ram
+  c.we must install java
+  d.install sonar qube
+  e.service sonar start
+  d.default username and password-----admin/admin
+  f. we havbe to inbvolve in  pom.xml to give the sonarqube link address at properties part distribution part
+  g. initially we have to give the name and save the token in note pad
+8.create two instances one for jenkins another for sonarqube
+9. yum install java -y java-1.8.0-openjdk-devel.x86_64
+10.sudo wget -O /etc/yum.repos.d/sonar.repo https://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+11.sudo yum install -y sonar
+12 service sonar start
+13 give the sonar publicip along with port number in the browser
+14.login with user admin ,passwd:admin                                                          
+15 give tjhe token name, and save the token in notepad
+now we need to install sonarqube 
+scanner pluginmanage jenkins---it cannot support ,thats way we have to download and install the pluginmanage
+16.https://updates.jenkins.io/download/plugins/sonar/ ---> sonar scaner plugin
+from that link we have to select 2.8.1
+  now we need to go to manage jenkins ---manage plugins---cick on advanced
+  under upload plugin  click on choose file---click up load
+17. now we have to edit the pom.xml file--under properties section we give 
+the sonar public ip but not change the other
+18.now weneed to give commit changes
+19 now we neede to intigrste with jenkins
+  manage jenkins---configure system--add sonar qube server ---give the name,tken sonarqube url
+20.we have to create new job 
+  under goalsection we need to give "clean sonar:sonar package"
+21.goto sonar qube dash board and refresh it we can gewt the details regarding our projectg
+22.to change the port number go to following pathe in sonarqube
+cd /opt/sonar/conf
+23.vi sonar.properties
+  esc+/ 9000 --- it can identify the where the 9000 is located
+  now we need to change the port number along with remove the # symbol at that line
+24.service sonar stop
+25.service sonar start
+if you want to chane usergoto adminstaration ---security--users----create user
+now goto open new tab give public ip along with portnumber 
+loginas new user 
+give the user name and passwd  
+
+
+sonar: 36b5aa26565a451731cdf6a18b60b1368aa70772

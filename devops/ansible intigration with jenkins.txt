@@ -1,0 +1,71 @@
+ansible integration with jenkins:
+================================
+prerequsites:
+1.jenkins instance
+2.ansible control master(ACM)
+3.two nodes
+
+communication is required between jenkins and ACM ,nodes and ACM
+================================================================
+ so we need to provide ssh configuration between them.
+ 
+ ssh configuration steps:
+ ------------------------
+ 1.useradd ansible
+ 2.passwd ansible
+ 3.vi /etc/ss/sshd_config
+ 4.vi /etc/sudoers
+ 5.service sshd start
+ 6.su - ansible
+ 7.ssh-keygen
+ 8.service sshd restart
+ 
+ jenkins integrate with ACM:
+ ===========================
+ ---> after ssh configuration we need to login to jenkins and install the plugin "publish over ssh"
+---->goto configure system---->gotobottum--->select ssh servers--->give the name and--->host name "give the private ip of ACM"--->username  "ANSIBLE"
+         click on advanced give passwd and test configuration,its enogh to connection between ACM and jenkins is ready
+
+tomcat install
+==============
+we have to run the playbook in node1 
+we need to change the username as tomcat to root 
+chown -R ansible:ansible tomcat
+cd tomcat 
+chmod 777 webapps
+now we require tomcat to deploy
+we can install tomcat throuh mannually or run the tomcat playbook in ACM
+HERE WE USE PLAY BOOK TO INSTALL TOMCAT
+now we need to edit tomcatusers.xml and tomcat context.xml
+cd tomcat/conf/------>tomcatusers.xml
+cd tomcat/webapps/manager/META-INF--->context.xml
+
+plybook for copy the war file from jenkinsto ACM
+
+---
+- hosts:node1 ip address
+  tasks:
+    - name: copy the files from loal to remote
+	  copy:
+	    src: /home/ansible/opt/playbooks/myweb-8.2.0.war
+	    dest: /usr/local/apache-tomca-8.05/webapps 
+	
+now we need to create job in jenkins
+=====================================
+1.click on new item 
+2.select freestylejob
+3.give the github ur4.cleanpackage
+4 click on build step and selct send war through the ssh
+   under source file ---:target/*.war
+        remove prefix---/target
+		remote directory--/opt/playbooks
+		exec command--- ansible-playbook/home/ansible/copy.yml
+		
+upto here war file will generate and is placed at /opt/playbooks path
+then it copy to the webapps folder of tomcat
+
+
+build now
+
+here we observe that war file is not copied to tomcat so we have to  run mannually
+ 

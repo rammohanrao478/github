@@ -1,0 +1,49 @@
+jenkins master slave configuration
+----------------------------------
+1.we have to take 2 instances
+2.install jenkins in one instane named it as master
+3.and insted if jenkins remaining all packages are needed for  working of slave
+4. install java in slave
+5.yum install -y java-1.8.0-openjdk
+
+yum install git -y
+
+6.go to manage jenkins and select manage nodes and clouds--select new node---give the node name--select perminent
+---click on create--no of exicuters  2----remote  root directory--/home/ec2-user/jenkins--label -dev---
+usage =---only build jobs with label expresions matched--launch methods--launch agents via ssh---host----give slave privateip
+ ---credentials--under credentials--kind--ssh username with private key--username--ec2user
+give the private key (open pem file and copy and past it )---add---save   
+7.now go to jenkins dash board create a new job--free style---go to general section---restrict build project on node
+8.goto build section --- select--- execute shell---write acommand ---echo "welcome to master slave configuration"
+----then save it and build now
+9.now we observe the console o/p as build over remotely
+
+go back to home directory
+-------------------------
+10.then now we can create a another job---give the git hub url ---general section ---restrict build project on node
+    now goto cd jenkins/workspace/projectname/ here we can see our files
+11.now we have to install maven in slave 
+12.goto build section---goal--clean package
+13. wget https://downloads.apache.org/tomcat/tomcat-8/v8.5.79/bin/apache-tomcat-8.5.79.tar.gz
+14.tar -xvf apache-tomcat-8.5.79.tar.gz -C /opt
+15.cd /opt/apache-tomcat-8.5.79/webaps/manager/META-INF
+16 vi context.xml
+
+
+now both the servers are in running state. i.e  readyto deploy
+==================================================================
+now goto jenkins dashboard install the "deploy to container plugin"
+
+goto jenkins dashboard --postbuild actions---war/jar files:target/*.war---context path :myweb--add container:tomcat8,
+---give the credentials---give tom cat url---apply and save
+
+ 
+
+
+
+how to provide security to your jenkins instances
+=================================================
+in four ways to provide security
+1.autherization
+2.athentication
+3.security realarams

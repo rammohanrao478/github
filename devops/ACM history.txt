@@ -1,0 +1,33 @@
+ ssh-keygen -t rsa
+    2  sudo service sshd restert
+    3  sudo service sshd start
+    4  sudo yum install -y ansible
+    5  sudo amazon-linux-extras install ansible2
+    6  ansible --version
+    7  vi /etc/ansible/ansible.cfg
+    8  sudo vi /etc/ansible/ansible.cfg
+    9  sudo vi /etc/ansible/hosts
+   10  ansible all -m ping
+   11  sudo vi /etc/ansible/hosts
+   12  sudo vi /etc/ansible/ansible.cfg
+   13  ansible all -m ping
+   14  ansible --version
+   15  sudo vi /etc/ansible/ansible.cfg
+   16  ssh-copy-id 3.84.23.18
+   17  ssh-copy-id 3.92.229.69
+   18  ansible all -m ping
+   19  ansible all -m ping -o
+   20  ansible all -m shell -a date
+   21  ansible all -m shell -a date -o
+   22  ansible all -m shell -a 'uptime' -o
+   23  ansible all -m yum -a "name=httpd state=present" --become 
+   29  ansible all -m service -a "name=httpd state=started" --become  
+   35  ansible all -m yum -a "name=httpd state=absent" --become
+   37  ansible all -m yum -a "name=git state=present" --become
+   38  ansible all -m yum -a "name=git state=absent" --become
+   39  touch chiru
+   40  ansible all -m copy -a "src=/home/ansible/chiru dest=/home/ansible" --become
+   41  ansible all -m command -a 'fdisk -1' --become
+   42  ansible all -m command -a 'lsblk' --becom
+   43  ansible all -m command -a 'lsblk' --become
+   44  ansible all -m command -a 'fdisk -ls' --become

@@ -1,0 +1,22 @@
+nexus installation
+===================
+#!/bin/bash 
+sudo yum update -y
+sudo yum install wget -y
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+cd /opt
+sudo wget -O nexus.tar.gz https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+sudo tar -xvf nexus.tar.gz
+chown -R ec2-user:ec2-user nexus-3.40.1-01 sonartype-work
+mv nexus-3.40.1-01 nexus3
+vi nexus3/bin/nexus.rc 
+# remove # and "ec2-user"
+ln -s /opt/nexus3/bin/nexus /etc/init.d/nexus
+cd /etc/init.d
+chkconfig --add nexus
+chkconfig nexus on
+sudo service nexus start
+
+
+
+

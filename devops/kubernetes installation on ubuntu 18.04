@@ -1,0 +1,65 @@
+Step 1: Install Docker on both the nodes:
+========================================
+apt-get update
+
+sudo apt install docker.io
+
+docker --version
+
+sudo systemctl enable docker
+
+ Add the Kubernetes signing key on both the nodes
+ ================================================
+ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+ 
+ sudo apt install curl
+ 
+ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+ 
+  Install Kubeadm
+  ================
+  sudo apt install kubeadm
+  
+  kubeadm version
+
+Kubernetes Deployment
+======================
+Disable swap memory (if running) on both the nodes
+---------------------------------------------------
+sudo swapoff -a
+
+Initialize Kubernetes on the master node
+========================================
+kubeadm init --pod-network-cidr=192.168.0.0/16
+
+kubeadm init --apiserver-advertise-address=172.31.30.126 --pod-network-cidr=192.168.0.0/16
+
+To start using your cluster, you need to run the following as a regular user
+============================================================================
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+You can now join any number of machines by running the following on each node
+==============================================================================
+as root:
+kubeadm join
+
+kubectl get nodes
+
+Deploy a Pod Network through the master node
+============================================
+sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+Use the following command in order to view the status of the network
+====================================================================
+kubectl get pods --all-namespaces
+
+sudo kubectl get nodes
+
+
+kubeadm join 172.31.30.126:6443 --token dudihe.1iwsk8fim15da0fw --discovery-token-ca-cert-hash sha256:e4d7b807cc26c8038d2946d803573b0a9f8c188888c4b30388d69bbe0d869f85
+
+https://vitux.com/install-and-deploy-kubernetes-on-ubuntu/
+
+
+

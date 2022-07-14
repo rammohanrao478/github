@@ -1,0 +1,25 @@
+docker file:
+============
+1.FROM
+2.MAINTAINER
+3.RUN
+4.USER
+5.WORKDIR
+6.COPY
+7.ADD
+8.VOLUME
+9.ONBUILD
+10.ENV 
+11.CMD
+12.EXPOSE
+
+FROM centos:latest
+RUN /bin/sh -c yum install java -y
+RUN mkdir /opt/tomcat
+WORKDIR /opt/tomcat
+ADD https://downloads.apache.org/tomcat/tomcat-8/v8.5.79/bin/apache-tomcat-8.5.79.tar.gz .
+RUN tar -xvf apache-tomcat-8.5.79.tar.gz
+RUN mv apache-tomcat-8.5.79/* /opt/tomcat
+EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh,"run"]
+

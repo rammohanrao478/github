@@ -1,0 +1,123 @@
+docker basic commands
+=====================
+1.docker --version
+
+2.docker pull httpd
+
+3.Run the docker image mentioned in the command. This command will create 
+  a docker container in which the Apache HTTP server will run.
+ 
+ 
+ docker run -it -d httpd
+ 
+4.Access the docker container and run commands inside the container. 
+  I am accessing the apache server container in this example.
+
+    docker exec -it 09ca6feb6efc bash
+
+5. docker rm container id	
+
+6.docker rmi image id
+
+7.docker restart containerid
+
+8.docker stop containerid
+
+9.Stop the docker container immediately.and automatically it will dis appear
+ by execuiting the docker kill command
+ 
+ docker kill containerid
+ 
+ 10.Commit
+Save a new docker image with container id mentioned in the command on the local system. 
+In the example below, geekflare is the username, and httpd_image is the image name
+ 
+ docker commit 09ca6feb6efc geekflare/httpd_image
+ 
+11. docker login
+Login with your Docker ID to push and pull images from Docker Hub.
+ If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+
+Username: geekflare
+
+Password:
+
+12.Upload a docker image with the image name mentioned in the command on the dockerhub.
+
+
+   docker push geekflare/httpd_image
+   
+ 13.The following command in docker lists
+   the details of all the network in the cluster.
+   
+    docker network ls
+
+ There are several other docker network commands.
+
+geekflare@geekflare:/home/geekflare$ docker network
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+
+connect     Connect a container to a network
+
+create      Create a network
+
+disconnect  Disconnect a container from a network
+
+inspect     Display detailed information on one or more networks
+
+ls          List networks
+
+prune       Remove all unused networks
+
+rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+
+14.Get detailed information about docker installed on the system including 
+the kernel version, number of containers and images, etc.
+
+        docker info
+		
+15.Copy a file from a docker container to the local system.
+  sudo docker cp 09ca6feb6efc:/usr/local/apache2/logs/httpd.pid /home/geekflare/
+
+[sudo] password for geekflare:
+
+16.Shows the history of a docker image with the image name mentioned in the command.
+  
+  docker history httpd
+  
+ 17.Show the logs of the docker container with contained id mentioned in the command.
+  
+  docker logs 09ca6feb6efc
+  
+ 18.Search for a docker image on dockerhub with the name mentioned in the command.
+ 
+    docker search hadoop
+19.Update container configurations. This shows all the update options.
+
+   docker update --help
+   
+ 20.Create a volume which docker container will use to store data.
+ 
+ docker volume create
+ 
+ docker volume ls
+ 
+ 21.Install a docker plugin vieux/sshfs with debug environment set to 1.
+ 
+   docker plugin install vieux/sshfs DEBUG=1
+   
+ 22.Logging out from dockerhub.
+ 
+     docker logout
+	 
+	 
+	 
+	 
+	 https://geekflare.com/docker-commands/

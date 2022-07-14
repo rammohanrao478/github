@@ -1,0 +1,101 @@
+maven
+=====
+developer----->code--------->push
+                               |
+							   |
+							github
+							   |
+							   |
+						 maven(build)
+                               |
+                               |
+                           war/jar/ear----------->copy to tomcat------->app===>EU
+maven works for java basd pojects only
+
+maven works for project object based models =>pom.xml						   
+
+defaultly jnit test cases are run here
+
+maven works based on pom.xml file
+
+every project only one pom,xml file is there
+
+pom.xml file has the fields
+  1.group id ===> client name or project name(ex: SBI)
+  2.Artifactid====>feature name (ex: creditcord)
+  3.version id====>three fields===>major release.minor release.hotfix/bugfix release===>8.2.0
+  4.type of package===>war/jar/ear ear---->enterprise archive
+  
+  pom.xml has the following tags
+  
+  properties tag----->we give the sonarqube link
+  dependencies tag
+  distribution management tag ----nexus url
+  plugins
+ 
+ pom.xml file is developed by developers 
+ as a devops engineers we involved in properties tag ,distribution management tag
+ 
+ maven life cycle:
+ ==================
+ 1.default
+ 2.clean
+ 3.site
+ 
+ default
+ ========
+ 1.compile
+ 2.validate
+ 3.test
+ 4.package
+ 5.install
+ 6.verify
+ clean
+ =====
+ 1.preclean
+ 2.clean
+ 3.post clean 
+ site
+ ====
+ 1.presite
+ 2.site
+ 3.post site
+ 4.site deploy
+ 
+ mavencommands or goals:
+ =======================
+ mvn compile
+ 
+ mvn clean package
+ mvn copile verify clean
+ mvnb test install package site
+ keypoint :maven always lookks for pom.xml inj current dsirectory
+ 
+ 
+ maven contains releases and snapshots
+ releases ===>
+ pom.xml===>version id===>8.2.0====>it is going to release
+ releases are maintaing the versioning
+ 
+ snpshots======>
+ pom.xml===>version id===>8.2.0-SNAPSHOTS====>it is INUNDER DEVELOPMENT PROCESS
+ snapshots are not maintaing the versioning
+ 
+ maven installation steps
+ =========================
+ 1.one ec2 instanll
+ 2.we need to install java
+ 3.we need to install git 
+ 
+ maven home directory----usr/share/apache-maven
+ 
+ installation steps
+ =================
+ yum install -y java-1.8.0-openjdk-devel.xx86_64
+ yum install git -y
+ git clone url
+ 
+ sudo wget http://repos.fedorapeople.org/repos/apache-maven/epe1-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repos
+ sudo sed -i s/\$releasever/6/g/etc/yum.repos.d/epel-apache-maven.repo
+ sodo yum install -y apache-maven
+ 

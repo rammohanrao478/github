@@ -1,0 +1,38 @@
+ route 53:
+ ========
+ add the instance to target group by goto target group  and select our target group and and bring the bottom page  to up
+ and select target --->click on edit-->select your webserver-->add to registered --->save
+ noow give the load balencer DNS address then we get the message
+ 
+ now i want to give my own web site name instead of ip address as well DNS name,for that purchaging of websites "godaddy" is very important
+ 
+ website freenom/en/index.html?lang=en 
+ goto this website we get the web sites at free of cost
+ select your web site and check it available or not incheck available bar---click on check out
+ ---click on continue--it will ask your details-->now let you sign in with gmail--once you will register you will get verification link  to your mail
+ and click on that verification link
+ goto link and fill the your details and click on complete order
+ now you have to goto signin to "freenom' 
+ now i purchage my website free now but i didn't link with loadbalencer.
+ here i have used route53 for connecting the loadbalencer and route 53
+ route 53 is a service which manages your domain name 
+ 
+ goto aws console click on route 53
+ we can purchage websites from aws also but it is very high cost
+ now i don't want to purchage ,iwant to link between my website and load balencer 
+ for that click on hosted zones---hosted zone is  is nothing but our website name--
+ --->click on create hosted zone--->give your purchaged web name under domain name----.scroll down and click on crfeate hosted zone
+ after completion of this we got one is NS and another is SOA
+ ns--->naming  server,soa--->single point of authority
+ns--->4 links
+soa --->1 link
+now i want to create connection and between my website and loadbalencer
+--->click on ceate record
+--->give your complete website name i.e www.lakshman.ml ---click on(to enable) alias button
+---select applicaton load balencer--and also select region(N.Verginia)--->and select your load balencer (snapdeal)
+click on create record and check the the route 53 dash board we can observe that our website name as--->www.lakshman.ml
+goto freenom our website name will displayed --->click on manage domain---management tools---name servers--->here we have to give the four name servers---
+-->goto route 53 --copy the 4 links and past them in freenom website-->now click on change name servers
+now we have to goto browser and enter our website name we got the message 
+here i didn't give my ipaddress and my dns but i got message
+flipkart also provide like this  

@@ -1,0 +1,56 @@
+elastic cache:
+=============
+ elastic cache is a smaller data base it is inbetwwen the ec2 machine and RDS
+ 
+ in connection between ec2 machine and rds 
+ two operations are done inbetween these RDS and instance those are 
+ 1.read operation, 2.write operation
+ 
+ when er you are enter the first time you have to logged in it will keep them in elastic cache
+ second time you want to log in it all fast to connect baecause already username and password are stored in elastic cache
+ this one is first befit and the second benfit is it can reduce the load on RDS 
+ 
+ here different types of caches are there 
+ they are
+ 1.redis cache 
+ 2.memcache
+
+go to AWS elastic cache  
+now goto select redies cache--->click on create--->select redies cache-->give the name --->flipkart
+engine version compatibility:6.2(select latest one)
+give the port number of elasti cache port number : 6379 for memcache port:11211
+click node type:t2.micro
+no.of replicas :1
+
+
+
+multi AZ select that one
+ name:subnet
+ description:leave it
+ vpc id :default vpc
+ select the all the subnets
+ show logs :selct
+ log formate:text
+ destination type:cloudwatch logs
+ log destination :create new-->logs--->depend on our requireent we can configure remaining
+ now click on create 
+ the same above steps are used for creation of memcache
+ 
+ now I WANT TO CREATE A aws instance to connect elastic cache
+ then goto scurity group and select all trafic , ipv4 from any where now login to our linux machine
+ now we have to install telnet
+ yum install -y telnet --->telnet is a protocal through which we connect the elastic cache
+ now goto elastic cache and copy the elastic cache endpoint and goto instance terminal and give the followig command
+
+
+
+           telnet (elasticcache end point) and remove the colon inbetween endpoint portnumber 6379
+		   
+after enter this comand right noew you are in inside the lastic cache
+ 
+ now we can enter the followig commands
+      set a = 'vinay'
+	  get a
+	  
+	  if you want to learn more commands you go to following link: redis.io
+	  

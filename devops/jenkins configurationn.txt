@@ -1,0 +1,68 @@
+ cd softwares/
+  120  ls -altr
+  121  wget https://downloads.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+  122   wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.76/bin/apache-tomcat-8.5.76.tar.gz
+  123  ls -altr
+  124   wget https://get.jenkins.io/war-stable/2.289.3/jenkins.war
+  125  ls -altr
+  126  tar -xvf apache-tomcat-8.5.76.tar.gz -C /opt
+  127  clear
+  128  ls -altr
+  129  tar -xvf apache-tomcat-8.5.76.tar.gz -C /opt
+  130  cd ../../opt
+  131  cd
+  132  cd /opt
+  133  ls -altr
+  134  cd
+  135  cd softwares/
+  136  ls -altr
+  137  tar -xvf apache-tomcat-8.5.76.tar.gz -C /opt
+  138  cd prject
+  139  ls altr
+  140  ls -altr
+  141  mvn archetype:generate
+  142  ls -altr
+  143  cd
+  144  ls -altr
+  145  mkdir clone
+  146  cd clone
+  147  ls -altr
+  148  sudo yum install git
+  149  cd
+  150  cd /opt
+  151  ls -altr
+  152  cd apache-tomcat-8.5.76
+  153  cd bin
+  154  grep -p | "java"
+  155  ls -altr
+  156  ./startup.sh
+  157  cd
+  158  cd clone
+  159  touch README.md
+  160  git init
+  161  git add README.md
+  162  git commit -m "first commit"
+  163  git remote add origin http://107.21.84.58:8080/gitbucket/git/root/simplejar1.git
+  164  git push -u origin master
+  165  ls -altr
+  166  git clone http://107.21.84.58:8080/gitbucket/git/root/simplejar1.git
+  167  ls -altr
+  168  cd simplejar1
+  169  pwd
+  170  cd
+  171  cd prject
+  172  ls -altr
+  173  cd simplejar1
+  174  ls -altr
+  175  cp -p /home/ec2-user/clone/simplejar1
+  176  cp -p * /home/ec2-user/clone/simplejar1
+  177  cp -rp * /home/ec2-user/clone/simplejar1
+  178  ls -altr
+  179  cd /home/ec2-user/clone/simplejar1
+  180  ls -altr
+  181  git status
+  182  git add *
+  183  git status
+  184  git commit -m "add the project file"
+  185  git status
+  186  git push

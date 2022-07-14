@@ -1,0 +1,28 @@
+asruti----------DevOps Developer Persistent Systems
+Aishwarya.Priya@citiustech.com ---->EXCELLENT OPPORTUNITY FOR LINUX System and Networking @CITIUSTECH HEALTHCARE-SHIFT TIMING-Rotational
+Priya Suri TCS MUMBAI/BANGALORE HIRING FOR LINUX SYSTEM ADMINISTRATOR on 16th JUNE 2022 (THURSDAY)!!!
+
+  8
+  
+windows machine:
+===============
+after creation of server click on connect--->select RDP INSTED OF SSH------we obseve that download windows,user name-->click get passwd
+---choose file--->select pem file----click on decript passwd---now we copy  the passwd---now usingthis user name and passwd
+we can login to the windows machine
+ click on the downloaded windows file ---click onb connect --- it will ask the passwd--ok---yes
+ 
+ HERE WE GIVE THE PORT NUMBER IS 3389 FOR "RDP"
+    USERNAME:Administartor
+	passwd:encrypted
+
+attach volume to windows machine:
+
+goto ec2 dash board---goto EBS---select volumes---click on create volume---goto actions ---attach volume---select our machine to attach
+
+now refresh nd check it-- now volume is attached-->now we have to goto click on windows ---click on server manager---wait for a couple of minutes
+--now we can observe left side file and storage services--click on that---click on the disk---we can observe two volumes willcome over here
+vol  is in offline--->now we rightclick on that and select bring to online--even though it is in offline---now rightclick on that volume--
+--select new volume---click on next--select your volume --click on next--ok---next---named it as D drive--next--select filre system --NTFS--NEXT
+--now click on create
+
+your machine and your volume is in same zone

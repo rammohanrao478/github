@@ -1,0 +1,40 @@
+git branch dev ----->here we can create a new branch
+git push origin dev --->we can push the branch local to remote
+git branch -d dev -->delete branch in locally
+git pusg origin -d dev --> delete branch in rem,otely
+git checkout master -->goto inside the branch 
+
+merging stratagies
+------------------
+1.fast-farward merge
+-------------------------
+ we  work on the file in the feture branch it connot merge to master,
+ first we have to merge it with development branch
+ git commit is done at feature branch and git checkout to dev branch
+ then we have to merge
+ modification on file in feature branch---->merge it with dev-->dev branch is merge with master
+
+2.two way or recursive merge 
+------------------------------
+ create file in fet branch --->chekout to dev --->again create a file -->merge fet-->:wq!
+ checkout to master--->again create a file and git merge dev 
+
+3.rebase :this is very dangerous command .due to this one we lost the entire project information
+---------
+git cherrypic:
+--------------
+it picks a commit from one branchand applies it to another branch withuot doing merge
+
+command git cherry-pick commit id
+ create one file in fet branch and copy the commit id and switched to dev then -->git cherry-pick  commit id-->checkout to master git cherrypick commit id 
+
+remote side merges(pull requests)
+
+
+
+git tags :
+creation of tags is same as branches but difference is 
+code is developed in branches but on top of code this tags are created
+ 
+ 
+ 

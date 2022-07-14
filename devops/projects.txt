@@ -1,0 +1,33 @@
+tomcat project:(class-7)
+ ==============
+ 
+ 
+ developer------->code------>push------>github----->maven(build)---->war/jar files------>copy to tomcat---->end user
+ 
+1. we rquire 2 instances.one for maven,another for tomcat
+2.login to the maven and install git
+3.git clone <repository url>
+4.cd myweb
+5.clean package
+6.the war file is available at target directory.goto target directory and do the ssh configuration
+7. vi pem file--->copy the pem file and paste it in vi editor---.give thepermissions(chmod 777 filr name)
+8.now ssh configure
+
+scp -i /tmp/pemfile ec2-user@tomcat public ip:/opt/tomcat/webapps
+
+
+
+class-8(project):
+=================
+jenkins with tomcat automation:
+
+
+we requre two instances---------->1.tomcat  2.jenkins
+create a job and generate jar/war files and using the 'deploy to container'
+
+
+developer---->github--->jenkins--->tomcat--->enduser
+							|
+							|
+						  maven
+

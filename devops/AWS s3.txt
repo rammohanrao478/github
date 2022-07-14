@@ -1,0 +1,152 @@
+s3:
+=======
+there are two types of databases are there they are
+1.user data--->it is stored in databases 
+2.application database--->this stored storages
+
+diferences between volumes and s3
+   volumes                       s3
+ 1.using of volume is under      1.ec2 machine is not requre to login to s3
+ instance.it is mandatory        
+ withpuit login to machine we 
+ can't login to vaolum
+ 2.what ever you store inside 
+ the volume,we call it as files  2.here we store the files in buckets and 
+                                  these files are called as objects
+ 
+ 3.the machine and volume are in 3.the machine is in any zone we can store the data 
+ same zone then only we can store 
+ the data
+ 4.two machines cannot access my  4.two machines simutaneously acces my  
+ volume at same time                   s3 bucket
+ 5.one machine is linux and other 5.here comptibilty is there any type of
+ machine is windows then the        we can attach
+ compaibilty is not provided
+ we must formate volume then
+ we canattach.
+ 6.volumes very cost               6.less cost compared to volumes
+ 7.max storage is 16.3 TB           7.the max size is 100 TB
+ 8.ex:if 100 gb file is there.      8.here we can upload 100 gb ata time 
+ we cannot upload single time.      s3 smatret storage service
+we can upload 25gb ata time 
+
+then we have to follow some steps to create s3 bucket and upload the file in s3 bucket
+s3 also provide one good thing.that is it can provide versioning
+like verion controle system like git.modification files are store indifferent 
+versions.eventhough  the file name is same we can save different content with same name.
+it can maintain versioning
+
+in properties column it has some other features
+
+we can enable static website hosting--->by select properties-->godown and select enable  website hosting
+--->hosta as a static website--->index document:index.html.txt-->error.html--->save changes
+
+
+goto s3 bucket -->go undewebsite hosting --->click on the link
+
+now we need to give two types of perssions required for s3 bucket
+1.bucket  permission
+2.object permission   
+go under ACL (acces control list)--->click on bucket owner enforce--->select enable ACL
+everyone(publi acces)  click on list  and click on read
+go down and select (i understand)--->click on save changes
+
+
+now goto objects
+click on one object and goto permissions and repeate thesame steps 
+
+using this steps we can run a website from our s3 bucket 
+
+
+
+replicaion:
+==========
+two  resions are there .i want what the data is available in region a S3 bucket the same data is copied 
+automatically but not mannually.here versioning also very important.replication is nothing but what the changE is done at
+bucket A the same changeis copied in bucket B also .these two s3 buckets are in different
+region.
+
+practial:
+==========
+let me create abucket in one region
+create bucket --->give the name--->click on ACL enabled --->enable bucket versioning-->click on create 
+simillarly i will create one more machine 
+create bucket --->give the name--->chage the region--->click on ACL enabled --->enable bucket versioning-->click on create 
+enable versiong is  very imporant,if youare not enable versioning replication will not work
+now ihave two buckets--->now i want to applyreplication
+for that go to first bucket and click on management column--->here wecan observe replication rule--->click on ceate replicaionrule
+--->give the name to replicaionrule--->select all objects in rthe bucket-->now we have choose destination bucket--->select choose a bucket in this account--><click on browse--->select  second S3 bucket 
+to choose pathe we hato create IAM role over here-->under IAM select newrole
+---->under additional replication options select 'replication time control(RTC)'---click onsave
+
+
+now letme goto oour first bucket---->add file-->select yourfile-->upload
+now we can observe te same file is available insecond s3 bocket also wait two minutes we can observe the file 
+
+as of now our application copy from first bucket to second bucket.at the same time we can we canget reverse replicationb .i.e second bucket to first bucket
+goto singapoor bucket---->under management--->scroll down--->click on create replicaion rule--->give replicatin name--->give the configuration steps same as first bucket replication steps as well
+
+
+now if you get upload a object into second bucket it will be available at first bucket
+
+simply drag and drop also used for uploading our file
+
+let me goto management again-->goto life cycle rule
+lifecycle rules used for limiting the cost of usage of aws account.it can limit the storage duration of 1 year or 6 months or few months like that. if the data is stored along time 
+aws will apply the charge on storage
+so we goto life cycle rule for reducing the duration of storage 
+
+example:
+==========
+log file is used for store the hisory.if lost month history is provided by log file for this month.for next month log file provide this month history,at that time last month history is not required,if that file is stored at that time aws  will chargable for that sorage but that storage is niot requred.
+we can avoid from this problem by using lifecycle rule
+using this life cycle we can provide life time for our storage in buckets
+we can decide the storage life time is one year or two years or one month
+
+
+here three type of log files are there          
+1.log file         trancition            delete after one months
+2.bank statement    5year                 5 year delete
+3.passport
+  aadhar
+  dof certificat       i cannot delete this documents,keep this files are maintain forever
+  
+for this certificate s we have to pay a lot 
+to avoid this aws will provide another option.tis can be achived by following
+    
+      
+	  |-----standard ia --->it can store data  fastly and very high cost 
+s3----|-----standard ------>it can store data cheaper than above
+      |-----glacier	--->it takes time to store and cheaper than above 
+	  |----glacier archive---->it takes much time to store or download .it cheaper
+
+no goto upload object--->addfile-->select anyfile randomly-->under properties-->you will have storage classes-->here we can observe different storage types-->select glecier-->click on upload
+
+goto management-->unde lifecycle--->create life cycle rule
+1.first i have to apply on log file
+--->give life cycle rule name--->select 'I acknolede that this rule will apply to all objects in the bucket
+--->select perminantly delete and expire -->days after objects become noncurrent-->30 days 	  
+ ---.click on create rule
+2.bank statement:edit the same rule
+--->goto actions-->goto edit--->goto life cycle rule actions -->noe i hve to select move currentversions of objects between storage classes
+--scroll down-->after one year i moved to glecier-->let me select glecier--->choose storage class transaction-->glacier deep archive-->days after object creation--->365 days--->select -->I acknowledge
+--->now select perminantly delete noncurrent version of objects--->days after objects become noncurrent--900
+
+here after 365 it will store in glacier and after 365 days it will move to glacier and after 900 days it will perminantly deleted
+
+--->now click on save rule
+
+3.pass port,aadharcord,dob certificate-->hese files are stored in glacier
+under bucket -->click on edit 
+under lifecycle rule actions disable perminetly delete noncurrent version of objects
+--click on save--->now these files are in glacier forever
+ 
+
+
+object lock is generated when only on creation of object only,after completio of creation of object we cannot enable
+
+event notification provide the whenever the object will upload we get the notification .but we can enable this for only required services only otherwise it will be chargable
+
+
+cloud tril is a service of aws which can provide event history will be provided here
+every thing which will done on aws it can provide the history of aws  

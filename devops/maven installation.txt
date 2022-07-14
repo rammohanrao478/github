@@ -1,0 +1,29 @@
+
+we can change the port number in jenkins by using the following command
+/etc/sysconfig/jenkins
+maven installation
+-------------------
+yum install -y java-1.8.0-openjdk-devel.x86_64
+
+yum install -y git
+
+git clone https://github.com/srinivas1987devops/myweb.git
+
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/.repo -O /etc/yum.
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+
+sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/apache-maven.spec
+
+wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.79/bin/apache-tomcat-8.5.79.tar.gz
+
+scp -i /tmp/jenkin.pem myweb-8.2.0.war ec2-user@50.19.52.155:/opt/tomcat/webapps
+
+
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.312.b07-1.amzn2.0.2.x86_64/jre
+
+
+ M2_HOME=/opt/maven
+M2=/opt/maven/bin
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.312.b07-1.amzn2.0.2.x86_64/jre
+PATH=$PATH:$JAVA_HOME/bin:$M2_HOME:$M2

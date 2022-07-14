@@ -1,0 +1,101 @@
+RDS :
+=====
+--->go to rds---->goto rds dash board--->CLICK ON DATABASE--->STANDARD DATA BASE
+there are 6 types of data bases
+1.amezon arora
+2.mysql
+3.Maria DB
+4.postgresql
+5.Oracle
+6.MicrosoftSQL server
+
+
+select one of the database
+select mysql-8.0.23
+under templates -->select free tier
+DB instance identifire :give the name
+master user name:awsstudent
+give the passwd -->confirm passwd
+allowcated storage ---.20 gb
+enable autoscaling storage
+vpc security group   *choose existing
+availability zone --->select atleast one zone
+data base port number--->3306 
+disable backup option-->it can automatically backups --->we have to select how many days do you want backup 
+log experts: enable all logs(audit log,error log,general log,slow qury log)
+(optional)enable auto miner version upgrade 
+under maintanance window--->click on select window
+startday      starttime       duration
+sunday           22   :00   utc  0.5   hours
+
+delettion protection
+enable deletion protection--->DB is cannot deleted by any one
+after parctice I wiil be deleted that's way I need not to enable
+
+
+now click on cerate database-->it will take 5 to 10 minutes to create
+
+this database does'nt have any ip address but it contains end point
+end point of load balencer is dns
+end point of ec2 is publick ip
+
+
+
+
+create one ec2 instance 
+login to the ec2 instancefrom this ec2 instance i want to connect to my RDS
+
+yum install mysql -y
+now we need to enable the port ---> 3306
+
+come back to RDS--->databses--->now display our database -->observe the data base-->whenever the data base is active-->we got the end point
+
+goback to instance terminal--->we give the following command
+
+mysql -h endpoint of data base -P 3306 -u awssudent -p -->this is the command to connect our RDS -->after enter this command it can ask the passwd
+
+ mysql -h flipkart.czlbq6leebsl.us-east-1.rds.amazonaws.com -P 3306 -u awsstudent -p
+after given the passwd 
+
+it will cinnect to database(RDS) it will display like this
+MySQL [(none)]> show databases; ---> it canshow the data base table
+as a devops engineer our job is create the data base and give the endpoint ,port number,username and password to your database team  
+
+Choose a database creation method Info
+
+Standard create
+You set all of the configuration options, including ones for availability, security, backups, and maintenance.
+
+Engine options:   mysql
+
+Version:MYSQL 8.0.23
+
+Templates:Free tier
+Use RDS Free Tier to develop new applications, test existing applications, or gain hands-on experience with Amazon RDS. Info
+
+Settings
+DB instance identifier:flipkart
+
+Credentials Settings
+Master username:AWSSTUSDENT
+PASSWD:awsstudent
+
+
+Instance configuration
+Burstable classes (includes t classes): t2.micro
+
+back up disable
+
+
+Log exports
+Select all log types to publish to Amazon CloudWatch Logs
+
+Audit log
+
+Error log
+
+General log
+
+Slow query log
+
+create database

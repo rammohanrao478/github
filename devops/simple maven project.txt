@@ -1,0 +1,27 @@
+simple maven project deployment in tomcat server
+------------------------------------------------
+1.select two ec2 instances
+2.install java on both
+3.install maven 
+3.install git on maven instances
+4.set the environmental vertiables
+5.clone the particular project or pom.xml file from github 
+6.give the command clean package
+tomcat server
+-------------
+1.install tomcat und unzip the tar file 
+2.goto webapps,give the full permissions i.e chmod 777 webapps
+
+--goto maven open the target directory
+-- for ssh connection between two instances /tmp/pem file
+---take the privatekey and paste that in /tmp/pemfile
+---give the user level permissions i.e   chmod 700 /tmp/pemfile
+then give the scp command
+
+scp -i /tmp/pemfile warfile ec2-user@public/private ip:path of webapps directory in tomcat instances
+
+check the deployment by take the public id with portnumber shown like this
+publicip:8080/myweb-8.2.0
+
+goto manger directory which is under webapps and goto META-INFO AND EDITTHE CONTEXT.XML FILE and remove value and allow lines and save it
+goto conf directory and edit tomcat.users.xml and insert manager-gui and manager-script

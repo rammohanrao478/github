@@ -1,0 +1,85 @@
+vpc:
+===
+priate ip adress will get from vpc only
+public ip you will get in region which have you created
+ connection flow 
+ laptop---->internet gateway--->public subnet---->ec2 instance
+ 
+ vpc---vertuval private cloud
+ the range of ec2 machines inside the vpc depend on the range of vpc
+ vpc basi resources are
+ sub nets 
+ gateways
+ route tables
+ two type of subnets are there we already know
+  i have created two ec2 machines inside the vpc one is connected to public sunet another is connected to private 
+  first machine can connect to out side env of vpc through IGW .
+  second machinecannot connct because it has private sub net. if we want to connect our machine to out side first connect too first machine and connect to out side of vpc
+
+first conncet to first machine thn it is not able to connect directly to second machine
+first it is connect to public subnet and after it is communicate with private subnet of second machine 
+
+
+goto vpc dash board 
+create vpc 
+give vpc name
+ipv4 CIDR block:20.0.0.0/16
+click on create vpc
+
+now goto subnets
+
+give the sub name as public subnet
+ip range:20.0.0.0/24 
+click on create VPC
+
+NOW CREATE ANOTHER SUBNET NAMED IT AS PRIVATE SUBNET
+CIDR BLOCK :20.0.1.0/24  
+NOW CLICK ON CREATE
+
+now we are goto internet gateways
+click on create internet gateway---give the name and click on create
+now goto actions and attach the igw to vpc
+
+now goto route tables
+ crate route table--->give the name --->select our required vpc--->create route table
+ select our route table
+ ---click on routes--->click on edit routs--add route---give 0.0.0.0/0--->under target -->select internet gateway
+ --->select our internetgate way--->now click on save rules
+  then click subnet association--- click on edit subnet association-->select our subnets
+  
+  now let me create ec2 instance inside my vpc right now
+  
+  select windows ami
+  on step 3 select our vpc--->select public subnet--launch instane
+  now one more machine is created using private subnet
+  
+  now i want to login to first system and goro run enter remote desktop connection now it will ask the ip address
+  now copy our private ip address and enter it in ip adress
+click on connect
+then it will asks the username and password
+give the user name is Administrator
+passwd is decripted passwd-->which obtained from private subnet mahine
+ now click on connect--->now it is connect
+
+
+vpc in linux
+============
+resources
+1.vpc
+2.subnet
+3.route tables
+4.internet gateway
+5.two ec2 instances
+1.vpc:give the name to vpc--->select the range--->create vpc
+2.subnet:give the name of subnet -->select region--->give the range-->create subnet
+3.route tables:create new route table--->edit routes--->atach internet gatway--->range 0.0.0.0/0--->save it
+   edit subnet associations--->select both the subnets---->save them
+4.internet gateway:attach the internetgateway to ourvpc
+ssh -i keyname ec2-user@private ip address of second machine  
+5.generate two ec2 machines--->usingourvpc and public and private subnets--->for public instance select urvpc,public subnet--->auto assigmn publicip :enable
+                                                                             
+																			for private instance select urvpc,public subnet--->auto assigmn publicip :disable
+6.login to the publick instance and take the pem file into the vi editor ,give the any name to that file
+   give the permissions to the file
+   chmod 400 file name 
+   ssh -i filename ec2-user@private ip address of second machine.

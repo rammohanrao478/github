@@ -1,0 +1,96 @@
+df -h --->it is used to know the how much storage is available()storage of our linux machine)
+free -m  --->how much ram i have given
+yum -->it is used for install a package (java,mysql,python)
+yum install http* -y ---->it is used for complete http package
+systemctl status httpd
+ctrl+l --->it can clear all the screen
+system ctl start httpd
+press home button we can go to starting of the command
+press end button we can go to ending of the command
+
+systemctl enable httpd 
+systemctl status httpd
+as of now this server is normal server.when ever you
+ install http the server becom web server.now we will communicate through ip address
+ now I want to communicate with my mobile for that use following command
+ vim /var/www/html/index.html
+     hi this is ram
+	 save the message
+	 
+chmod 777 /var/www/html/index.html
+
+systemctl restart httpd
+
+enable port number 80
+
+then go to google chrome and give the public ip
+
+snapshots for linux machine
+===========================
+let us create two machines
+one is in one region and another is in another zone
+BY TAKING THE SNAPSHOT FOR VOLUME IN ONE zone IT CAN BE MOVED TO ANOTHER ZONE AND ATTACHED TO another instance
+
+
+lsblk :this command shows the volume space
+ now we have to attach avolume to our instance 
+ now goto terminal and check it by using the command
+ 
+ lsblk
+ 
+ now we have to formate our volume so by using following command we can do that
+ 
+ mkfs -t ext4 /dev/xvdf 
+ lsblk ---->here we can observe that mount point will blank
+ now create a directory and attach the volume to my directory
+ mkdir flipkart
+ mount /dev/xvdf /root/flipkart --->this command can attach our directory to volume
+ lsblk ---> now we can observe that mount point
+ cd flipkartc
+ ll
+ touch file1 file2 file3 file4
+ 
+ now three file are there in etra volume now i want to attach this volume to zone-b machine 
+ but we cannot do that ,with the help of snapshot we can do that
+ now goto volumes  goto actions and click on snapshot noe give the name to snapshot 
+ and create now goto snapshot we can see the snapshot 
+ now goto another machine whgich is run in another zone
+
+now we can observe that snapshot is ready and create one more volume from the snapshot
+in zone c using the snapshot
+
+creation of volume from snapshot
+=================================
+select snapshot -->goto actions create volume--->give name give another zone
+
+now the volume is ready to use
+
+the volume is attached to the instance which is in the same zone (volume and instance are in same zone)
+lsblk
+now we can observe the 3 files in this machine which are present due to attached volume 
+ now we need not to formate .
+
+
+mkdir snapdeal
+mount /dev/nvme1n1/root/snapdeal ; now the volume is attached to snapdeal
+lsblk ;at this we can observe mount process
+ cd snapdeal
+ ll
+ all the thre files are available here
+ now i want to create a machine in london rergion and attach this volume 
+ 
+ we have to goto actions in snapshot click on copy and select the region london then click on copy
+ now we can attach the volume to ou machine which is present in the london region
+ now we login to the machine
+ now we need to check how many volumes are there in machine
+here we can observe attached volume
+mkdir snapdeal
+now we need to mount 
+mount /dev/xvdf /root/snapdeal
+
+lsblk :now we can observe that mount de atails also
+cd snapdeal
+ll
+
+ 
+ 
